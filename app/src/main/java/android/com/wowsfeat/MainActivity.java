@@ -56,6 +56,14 @@ public class MainActivity extends Activity {
         }
     }
 
+    //返回时刷新playerList
+    @Override
+    protected void onResume() {
+        playerList.clear();
+        playerList.addAll(getPlayerListFromCache());
+        super.onResume();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
