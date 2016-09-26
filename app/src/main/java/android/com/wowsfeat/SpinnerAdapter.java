@@ -43,7 +43,6 @@ public class SpinnerAdapter extends BaseAdapter {
 
         TextView zone_name = (TextView) convertView.findViewById(R.id.zone_name);
         zone_name.setText(getItem(position));
-        mainActivity.setZone(position);
 
         return convertView;
     }
