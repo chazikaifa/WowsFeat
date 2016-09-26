@@ -1,7 +1,6 @@
 package android.com.wowsfeat;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,6 @@ public class NameAdapter extends ArrayAdapter<String> {
         playerList = objects;
     }
 
-    @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view;
