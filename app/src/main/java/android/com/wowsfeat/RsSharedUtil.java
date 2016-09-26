@@ -16,16 +16,8 @@ import android.content.SharedPreferences.Editor;
  */
 public class RsSharedUtil {
 
-	private static String SHARED_PATH = "app_share";
-
-	public static void setSharedPath(String path){
-		SHARED_PATH = path;
-	}
-
-	public static String getSharedPath(){
-		return SHARED_PATH;
-	}
-
+	private static final String SHARED_PATH = "app_share";
+  
 	public static SharedPreferences getDefaultSharedPreferences(Context context) {
 		return context.getSharedPreferences(SHARED_PATH, Context.MODE_PRIVATE);
 	}
