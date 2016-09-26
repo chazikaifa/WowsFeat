@@ -1,8 +1,9 @@
 package android.com.wowsfeat;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.com.wowsfeat.infoDetail.PlayerDetailActivity;
-import android.content.Intent;
+import android.app.Notification;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
     private List<String> allNameList = new ArrayList<>();   //从缓存读取的所有昵称
     private List<String> nameList = new ArrayList<>();      //呈现的昵称
     private int zone = 0;//0代表南区，1代表北区，默认为南区
-    private String name = "";
+    private String name;
 
     //当再次回到Activity时更新allNameList
     @Override
@@ -200,33 +202,19 @@ public class MainActivity extends Activity {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-				
-				if(!name.equals("")){
-					boolean flag = true;
-					for(String eachName:allNameList){
-						if(eachName.equals(name)){
-							flag = false;
-						}
-					}
+                boolean flag = true;
+                for(String eachName:allNameList){
+                    if(eachName.equals(name)){
+                        flag = false;
+                    }
+                }
 
-					if(flag){
-						allNameList.add(0,name);
-						WritePlayerListToCache(allNameList);
-					}
+                if(flag){
+                    allNameList.add(0,name);
+                    WritePlayerListToCache(allNameList);
+                }
 
-//                    Toast.makeText(getApplicationContext(),"跳转Activity",Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, PlayerDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name",name);
-                    bundle.putInt("zone",zone);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-				}else{
-					Toast.makeText(getApplicationContext(),"请输入昵称！",Toast.LENGTH_SHORT).show();
-				}
+                Toast.makeText(getApplicationContext(),"跳转Activity",Toast.LENGTH_SHORT).show();
             }
         });
     }
