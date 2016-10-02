@@ -2,7 +2,11 @@ package android.com.wowsfeat.infoDetail;
 
 import android.app.Activity;
 import android.com.wowsfeat.R;
+import android.com.wowsfeat.WebViewActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +19,10 @@ public class PlayerDetailActivity extends Activity {
     private String name;
     private int zone;
 
+    private ImageView btn_back;
+    private ImageView btn_webview;
+
     private TextView name_tv;
-    private TextView zone_tv;
     private TextView player_rank;
     private TextView person_game;
     private TextView team_game;
@@ -72,8 +78,29 @@ public class PlayerDetailActivity extends Activity {
         competition_rank = (TextView) findViewById(R.id.competition_rank);
         PvC_game = (TextView) findViewById(R.id.PvC_game);
 
-        name_tv = (TextView) findViewById(R.id.name);
-        zone_tv = (TextView) findViewById(R.id.zone);
+        btn_back  = (ImageView) findViewById(R.id.btn_back);
+        name_tv = (TextView) findViewById(R.id.name_zone);
+        btn_webview = (ImageView) findViewById(R.id.btn_webview);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btn_webview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(PlayerDetailActivity.this, WebViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name",name);
+                bundle.putInt("zone",zone);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         player_rank.setText(playerData.getRankString());
         person_game.setText(playerData.getPersonString());
@@ -81,11 +108,10 @@ public class PlayerDetailActivity extends Activity {
         PvC_game.setText(playerData.getPvCString());
         competition_rank.setText(playerData.getCompetitionString());
 
-        name_tv.setText(name);
         if(zone == 0 ){
-            zone_tv.setText("南区");
+            name_tv.setText("南区-"+name);
         }else {
-            zone_tv.setText("北区");
+            name_tv.setText("北区-"+name);
         }
     }
 
